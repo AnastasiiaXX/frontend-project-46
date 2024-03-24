@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/AnastasiiaXX/frontend-project-46#readme",
   "dependencies": {
-    "commander": "^11.0.0"
+    "commander": "^11.1.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "eslint": "^8.47.0",
