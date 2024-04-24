@@ -1,6 +1,10 @@
-make lint
-	npx eslint .
-make install
-	npm install
-make gendiff
-	node bin/gendiff.js
+lint:
+	  npx eslint .
+lint-fix:
+	  npx eslint fix .
+install:
+	  npm install
+gendiff:
+	  node bin/gendiff.js
+test:
+	  npm test

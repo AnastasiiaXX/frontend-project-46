@@ -1,0 +1,15 @@
+name: project-check
+
+on: push
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: 
+        uses:
+        with:
+          hexlet-id: ${{ secrets.TEST_REPORTER_ID }}
