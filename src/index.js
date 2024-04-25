@@ -3,8 +3,8 @@ import path from 'path';
 import _ from 'lodash';
 
 const genDiff = (filepath1, filepath2) => {
-  const path1 = path.resolve(process.cwd(), filepath1);
-  const path2 = path.resolve(process.cwd(), filepath2);
+  const path1 = path.resolve(process.cwd(), '__fixtures__', filepath1);
+  const path2 = path.resolve(process.cwd(), '__fixtures__', filepath2);
 
   const fileReading1 = readFileSync(path1, 'utf-8');
   const fileReading2 = readFileSync(path2, 'utf-8');
@@ -24,8 +24,9 @@ const genDiff = (filepath1, filepath2) => {
     if (_.isEqual(json1[key], json2[key])) {
       return `    ${key}: ${json1[key]}`;
     }
-    return [`  - ${key}: ${json1[key]}`, `  + ${key}: ${json2[key]}`];
+    return [`  - ${key}: ${json1[key]}\n  + ${key}: ${json2[key]}`];
   });
 
   return `{\n${difference.join('\n')}\n}`;
 };
+export default genDiff;
