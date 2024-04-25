@@ -3,9 +3,6 @@ name: project-check
 on:
   - push
 
-env:
-    CI: true
-
 jobs:
   build:
 
@@ -31,7 +28,6 @@ jobs:
       - name: Test & publish code coverage
       # Publish code coverage on Code Climate
       # https://github.com/paambaati/codeclimate-action
-      # uses: AnastasiiaXX/codeclimate-action@v5.0.0
         uses: paambaati/codeclimate-action@v5.0.0
       # Add Code Climate secret key
         env:
