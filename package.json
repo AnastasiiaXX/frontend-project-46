@@ -8,7 +8,7 @@
     "gendiff": "./bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx jest"
+    "test": "CC_TEST_REPORTER_ID=$CC_TEST_REPORTER_ID npx jest --coverage"
   },
   "repository": {
     "type": "git",
