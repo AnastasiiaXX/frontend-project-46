@@ -1,29 +1,17 @@
 import path from 'path';
-import _ from 'lodash';
 import parser from './parsers.js';
+import createSyntaxTree from './createSyntaxTree.js';
+import formatter from './formatters/index.js';
 
-const genDiff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const path1 = path.resolve(process.cwd(), '__fixtures__', filepath1);
   const path2 = path.resolve(process.cwd(), '__fixtures__', filepath2);
 
-  const file1 = parser(path1);
-  const file2 = parser(path2);
+  const object1 = parser(path1);
+  const object2 = parser(path2);
 
-  const keys = _.sortBy(_.union(Object.keys(file1), Object.keys(file2)));
-
-  const difference = keys.map((key) => {
-    if (!_.has(file1, key)) {
-      return `  + ${key}: ${file2[key]}`;
-    }
-    if (!_.has(file2, key)) {
-      return `  - ${key}: ${file1[key]}`;
-    }
-    if (_.isEqual(file1[key], file2[key])) {
-      return `    ${key}: ${file1[key]}`;
-    }
-    return [`  - ${key}: ${file1[key]}\n  + ${key}: ${file2[key]}`];
-  });
-
-  return `{\n${difference.join('\n')}\n}`;
+  return formatter(createSyntaxTree(object1, object2), format);
+  // return createSyntaxTree(object1, object2);
 };
 export default genDiff;
+console.log(1111, genDiff('file1.json', 'file2.json'));
