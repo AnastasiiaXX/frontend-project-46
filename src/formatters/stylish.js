@@ -1,14 +1,18 @@
 import _ from 'lodash';
 
-const indent = (depth) => ' '.repeat(depth * 4 - 2);
+const makeIndent = (depth) => {
+  const replacer = ' ';
+  const indentSize = 4;
+  return replacer.repeat(depth * indentSize - 2);
+};
 
 const stringify = (value, depth = 1) => {
   if (!_.isObject(value)) {
     return `${(value)}`;
   }
   const keys = Object.keys(value);
-  const result = keys.map((key) => `${indent(depth + 1)}  ${key}: ${stringify(value[key], depth + 1)}`);
-  return `{\n${result.join('\n')}\n  ${indent(depth)}}`;
+  const result = keys.map((key) => `${makeIndent(depth + 1)}  ${key}: ${stringify(value[key], depth + 1)}`);
+  return `{\n${result.join('\n')}\n  ${makeIndent(depth)}}`;
 };
 
 const doStylish = (diff) => {
@@ -19,18 +23,18 @@ const doStylish = (diff) => {
       } = node;
       switch (type) {
         case 'nested':
-          return `${indent(depth)}  ${key}: {\n${iter(children, depth + 1)}\n${indent(depth)}  }`;
+          return `${makeIndent(depth)}  ${key}: {\n${iter(children, depth + 1)}\n${makeIndent(depth)}  }`;
         case 'added':
-          return `${indent(depth)}+ ${key}: ${stringify(newValue, depth)}`;
+          return `${makeIndent(depth)}+ ${key}: ${stringify(newValue, depth)}`;
         case 'deleted':
-          return `${indent(depth)}- ${key}: ${stringify(oldValue, depth)}`;
+          return `${makeIndent(depth)}- ${key}: ${stringify(oldValue, depth)}`;
         case 'updated':
           return [
-            `${indent(depth)}- ${key}: ${stringify(oldValue, depth)}`,
-            `${indent(depth)}+ ${key}: ${stringify(newValue, depth)}`,
+            `${makeIndent(depth)}- ${key}: ${stringify(oldValue, depth)}`,
+            `${makeIndent(depth)}+ ${key}: ${stringify(newValue, depth)}`,
           ];
         default:
-          return `${indent(depth)}  ${key}: ${stringify(oldValue, depth)}`;
+          return `${makeIndent(depth)}  ${key}: ${stringify(oldValue, depth)}`;
       }
     });
     return result.join('\n');

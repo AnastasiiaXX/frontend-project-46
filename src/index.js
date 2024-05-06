@@ -11,7 +11,6 @@ const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const object2 = parser(path2);
 
   return formatter(createSyntaxTree(object1, object2), format);
-  // return createSyntaxTree(object1, object2);
 };
 export default genDiff;
-console.log(1111, genDiff('file1.json', 'file2.json'));
+// console.log(1111, genDiff('file1.json', 'file2.json', 'plain'));
